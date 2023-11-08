@@ -44,6 +44,7 @@ local plugins = {
     event = "InsertEnter",
     opts = {} -- this is equalent to setup({}) function
     },
+    {"github/copilot.vim"}
 }
 
 require("lazy").setup(plugins, opts)
