@@ -1,13 +1,20 @@
-This is all of my neovim config as of 30-10-23
+This is my Neovim configuration as of 8-11-23
 
-I made this from scratch, added each plugin to my taste
+# Copilot status
 
-I keep changing my configs, I may add the auto bracket thing, dk.
+I recently added Github copilot since I have access to it because I am a student, so why not.
 
-I am still very new to neovim( about 1 week  in ), so I don't have many remaps
+I will probably end up removing it once I lose access to my student account.
 
-As I use more, I will add more !
+I really don't use the copilot's suggestions, in fact most of the time I have it disabled.
 
-UPDATE :
+# Auto-Bracket
 
-I added the auto bracket thing
+I don't know if many neovim users have this, I just find this comfortable and faster.
+
+# code formatting
+
+It sucks I can't format code in typescript/javascript using the lsp, I wonder if prettier will help with that.
+
+For now code foramtting has worked for any other type (I only tested rust).
+
