@@ -1,10 +1,35 @@
 local nvim_lsp = require'lspconfig'
 
-local on_attach = function(client)
+-- emmet lsp settings
+    
+local configs = require('lspconfig/configs')
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+nvim_lsp.emmet_ls.setup({
+    -- on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
+    init_options = {
+      html = {
+        options = {
+          -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+          ["bem.enabled"] = true,
+        },
+      },
+    }
+})
+
+-- emmet lsp settings
+
+local on_attach = function(client,bufnr)
     require'completion'.on_attach(client)
+    
 end
 
 nvim_lsp.rust_analyzer.setup({
+
     on_attach=on_attach,
     settings = {
         ["rust-analyzer"] = {
@@ -114,3 +139,15 @@ cmp.setup({
     { name = "buffer" },
   },
 })
+
+-- format using lsp
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+      local opts = { buffer = ev.buf }
+      vim.keymap.set('n', '<leader>pv', function()
+          vim.lsp.buf.format { async = true }
+    end, opts)
+  end,
+})
+-- format using lsp 
