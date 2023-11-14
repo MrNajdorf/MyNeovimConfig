@@ -1,1 +1,1 @@
-require("igris")
+require("Igris")
