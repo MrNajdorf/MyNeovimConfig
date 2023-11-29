@@ -51,7 +51,10 @@ nvim_lsp.rust_analyzer.setup({
     }
 })
 
-nvim_lsp.tsserver.setup({})
+nvim_lsp.tsserver.setup {
+  on_attach = on_attach,
+  cmd = { "typescript-language-server", "--stdio" }
+}
 
 -- Set completeopt to have a better completion experience
 -- :help completeopt
@@ -120,7 +123,7 @@ cmp.setup({
     ["<C-n>"] = cmp.mapping.select_next_item(),
     -- Add tab support
     ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-    ["<Tab>"] = cmp.mapping.select_next_item(),
+    ["<C-y>"] = cmp.mapping.select_next_item(),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
@@ -145,9 +148,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
       local opts = { buffer = ev.buf }
-      vim.keymap.set('n', '<leader>pv', function()
+      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+      vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+      vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+      -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+      -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+      -- vim.keymap.set('n', '<space>wl', function()
+      --     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+      -- end, opts)
+      vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+      vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+      vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+      vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+      vim.keymap.set('n', '<space>pp', function()
           vim.lsp.buf.format { async = true }
-    end, opts)
+      end, opts)
   end,
 })
 -- format using lsp 
