@@ -65,7 +65,7 @@ nvim_lsp.rust_analyzer.setup({
 
 nvim_lsp.tsserver.setup {
   on_attach = on_attach,
-  cmd = { "typescript-language-server", "--stdio" }
+  cmd = { "typescript-language-server", "--stdio" },
 }
 
 -- Set completeopt to have a better completion experience
